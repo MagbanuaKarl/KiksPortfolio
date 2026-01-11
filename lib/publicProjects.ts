@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
-import { Project } from "@/types/project";
+import { Project } from "@/types/projects";
 
 export async function getPublicProjects(): Promise<Project[]> {
   const q = query(

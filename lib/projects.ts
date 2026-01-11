@@ -3,32 +3,56 @@
 import { db } from "@/lib/firebase";
 import {
   collection,
+  getDocs,
   addDoc,
+  updateDoc,
   deleteDoc,
   doc,
-  getDocs,
   serverTimestamp,
 } from "firebase/firestore";
-import { Project } from "@/types/project";
+import { Project } from "@/types/projects";
 
-const PROJECTS_COLLECTION = "projects";
+const COLLECTION = "projects";
 
+/**
+ * READ
+ */
 export async function getProjects(): Promise<Project[]> {
-  const snapshot = await getDocs(collection(db, PROJECTS_COLLECTION));
+  const snapshot = await getDocs(collection(db, COLLECTION));
 
-  return snapshot.docs.map((docSnap) => ({
-    id: docSnap.id,
-    ...(docSnap.data() as Project),
+  return snapshot.docs.map((snap) => ({
+    id: snap.id,
+    ...(snap.data() as Omit<Project, "id">),
   }));
 }
 
-export async function addProject(project: Omit<Project, "createdAt">) {
-  await addDoc(collection(db, PROJECTS_COLLECTION), {
-    ...project,
+/**
+ * CREATE
+ */
+export async function addProject(
+  data: Omit<Project, "id" | "createdAt">
+): Promise<void> {
+  await addDoc(collection(db, COLLECTION), {
+    ...data,
     createdAt: serverTimestamp(),
   });
 }
 
-export async function deleteProject(id: string) {
-  await deleteDoc(doc(db, PROJECTS_COLLECTION, id));
+/**
+ * UPDATE
+ */
+export async function updateProject(
+  id: string,
+  data: Partial<Omit<Project, "id" | "createdAt">>
+): Promise<void> {
+  const ref = doc(db, COLLECTION, id);
+  await updateDoc(ref, data);
+}
+
+/**
+ * DELETE
+ */
+export async function deleteProject(id: string): Promise<void> {
+  const ref = doc(db, COLLECTION, id);
+  await deleteDoc(ref);
 }

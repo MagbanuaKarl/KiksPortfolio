@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getPublicProjects } from "@/lib/publicProjects";
-import { Project } from "@/types/project";
+import { Project } from "@/types/projects";
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);

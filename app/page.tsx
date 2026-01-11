@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "@/lib/profile";
 import { getPublicProjects } from "@/lib/publicProjects";
-import { Project } from "@/types/project";
+import { Project } from "@/types/projects";
 
 export default function HomePage() {
   const [profile, setProfile] = useState<any>(null);
