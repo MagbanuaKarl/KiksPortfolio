@@ -3,17 +3,7 @@
 import { useEffect, useState } from "react";
 import ProfileForm from "./ProfileForm";
 import { getProfile, updateProfile } from "@/lib/profile";
-
-type Profile = {
-  name: string;
-  role: string;
-  summary: string;
-  proof: string;
-  skills: string[];
-  github: string;
-  linkedin: string;
-  resumeUrl: string;
-};
+import { Profile } from "@/types/profile";
 
 export default function ProfileSection() {
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -49,7 +39,13 @@ export default function ProfileSection() {
           <ProfileRow label="Resume" value={profile.resumeUrl} />
         </dl>
       ) : (
-        <ProfileForm profile={profile} onSave={setProfile} />
+        <ProfileForm 
+          profile={profile} 
+          onSave={(updatedProfile) => {
+            setProfile(updatedProfile);
+            setEditing(false);
+          }} 
+        />
       )}
     </section>
   );

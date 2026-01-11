@@ -2,17 +2,7 @@
 
 import { useState } from "react";
 import { updateProfile } from "@/lib/profile";
-
-type Profile = {
-  name: string;
-  role: string;
-  summary: string;
-  proof: string;
-  skills: string[];
-  github: string;
-  linkedin: string;
-  resumeUrl: string;
-};
+import { Profile } from "@/types/profile";
 
 type Props = {
   profile: Profile;
