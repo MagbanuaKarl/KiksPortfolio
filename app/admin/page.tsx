@@ -29,7 +29,7 @@ export default function AdminPage() {
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
 
       {/* Profile management */}
-      <ProfileSection />
+      {/* <ProfileSection /> */}
 
       {/* Projects management */}
       <ProjectsSection />
