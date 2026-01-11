@@ -32,7 +32,7 @@ export default function AdminPage() {
       <ProfileSection />
 
       {/* Projects management */}
-      <ProjectsSection />
+      {/* <ProjectsSection /> */}
     </main>
   );
 }
