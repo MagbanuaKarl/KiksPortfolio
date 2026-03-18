@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 export type Project = {
   id?: string;
   title: string;
@@ -8,5 +6,5 @@ export type Project = {
   githubUrl?: string;
   liveUrl?: string;
   featured: boolean;
-  createdAt?: Timestamp;
+  createdAt?: string | null;
 };
