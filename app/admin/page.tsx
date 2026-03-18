@@ -18,13 +18,17 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 flex items-center justify-center p-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12">
-          <div className="flex flex-col items-center justify-center space-y-4">
-            <div className="relative">
-              <div className="w-16 h-16 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
+      <div className="page-shell flex items-center justify-center">
+        <div className="page-shell__inner">
+          <div className="card card--section flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center space-y-4">
+              <div className="relative">
+                <div className="w-14 h-14 border-4 border-[color:var(--color-border-subtle)] border-t-[color:var(--color-primary)] rounded-full animate-spin" />
+              </div>
+              <p className="text-sm sm:text-base text-secondary font-medium">
+                Loading dashboard...
+              </p>
             </div>
-            <p className="text-gray-600 font-medium">Loading dashboard...</p>
           </div>
         </div>
       </div>
@@ -36,23 +40,25 @@ export default function AdminPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
-      <div className="max-w-[1400px] mx-auto p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-12">
+    <main className="page-shell">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8 sm:space-y-12">
         {/* Header */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8">
+        <div className="card card--section animate-fade-in-up">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
                 Admin Dashboard
               </h1>
-              <p className="text-sm sm:text-base text-gray-600 mt-2">
+              <p className="text-sm sm:text-base text-secondary mt-2">
                 Welcome back, {user.email}
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-gray-700">Active</span>
+              <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50/70 dark:from-slate-900 dark:to-slate-800 rounded-lg border border-[color:var(--color-border-subtle)]">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-sm font-medium text-primary">
+                  Active
+                </span>
               </div>
             </div>
           </div>
@@ -124,14 +130,20 @@ function StatCard({
   color: string;
 }) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
+    <div className="card card--section card--interactive p-6">
       <div className="flex items-center gap-4">
-        <div className={`flex-shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white shadow-md`}>
+        <div
+          className={`flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center text-white shadow-md`}
+        >
           {icon}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-600 truncate">{label}</p>
-          <p className="text-lg font-bold text-gray-900 truncate">{value}</p>
+          <p className="text-sm font-medium text-secondary truncate">
+            {label}
+          </p>
+          <p className="text-lg font-semibold text-primary truncate">
+            {value}
+          </p>
         </div>
       </div>
     </div>

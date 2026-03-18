@@ -10,7 +10,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-page text-primary antialiased">
         <Navbar />
         <AuthProvider>{children}</AuthProvider>
       </body>

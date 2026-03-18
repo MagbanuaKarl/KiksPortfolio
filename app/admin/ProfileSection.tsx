@@ -15,12 +15,14 @@ export default function ProfileSection() {
 
   if (!profile) {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12">
+      <div className="card card--section">
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="relative">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-[color:var(--color-border-subtle)] border-t-[color:var(--color-primary)] rounded-full animate-spin"></div>
           </div>
-          <p className="text-sm sm:text-base text-gray-600 font-medium">Loading profile...</p>
+          <p className="text-sm sm:text-base text-secondary font-medium">
+            Loading profile...
+          </p>
         </div>
       </div>
     );
@@ -28,11 +30,11 @@ export default function ProfileSection() {
 
   return (
     <section className="mb-12">
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="card overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-5">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white">
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">
                 Profile Settings
               </h2>
               <p className="text-blue-100 text-sm mt-1">
@@ -44,7 +46,7 @@ export default function ProfileSection() {
               className={`inline-flex items-center px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-medium rounded-lg transition-all duration-150 whitespace-nowrap ${
                 editing
                   ? "bg-white/20 text-white hover:bg-white/30 border border-white/30"
-                  : "bg-white text-blue-600 hover:bg-blue-50 shadow-md"
+                  : "bg-white text-[color:var(--color-primary)] hover:bg-blue-50 shadow-md"
               }`}
             >
               {editing ? (
@@ -66,7 +68,7 @@ export default function ProfileSection() {
           </div>
         </div>
 
-        <div className="p-6 sm:p-8">
+        <div className="p-6 sm:p-8 bg-[color:var(--color-surface)]">
           {!editing ? (
             <dl className="space-y-6">
               <ProfileRow 
@@ -205,14 +207,14 @@ function ProfileRow({
   value: string | React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+    <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-6 pb-6 border-b border-[color:var(--color-border-subtle)] last:border-b-0 last:pb-0">
       <div className="flex items-center gap-3 sm:w-48 flex-shrink-0">
-        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white shadow-md">
+        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white shadow-md">
           {icon}
         </div>
-        <dt className="text-sm font-semibold text-gray-700">{label}</dt>
+        <dt className="text-sm font-semibold text-primary">{label}</dt>
       </div>
-      <dd className="flex-1 text-sm text-gray-700 break-words">
+      <dd className="flex-1 text-sm text-secondary break-words">
         {typeof value === 'string' ? (
           <p className="leading-relaxed">{value}</p>
         ) : (

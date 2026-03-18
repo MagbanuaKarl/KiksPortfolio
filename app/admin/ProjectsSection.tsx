@@ -63,15 +63,15 @@ export default function ProjectsSection() {
   }
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="mb-6 sm:mb-8">
+    <section className="space-y-6 sm:space-y-8">
+      <div className="card card--section">
+        <div className="mb-4 sm:mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-2">
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
                 Projects
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 mt-1">
+              <p className="text-sm sm:text-base text-secondary mt-1">
                 Manage your portfolio projects
               </p>
             </div>
@@ -98,12 +98,16 @@ export default function ProjectsSection() {
         </div>
 
         {loading ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 sm:p-12">
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <div className="relative">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-gray-200 border-t-blue-600 rounded-full animate-spin"></div>
+          <div className="mt-4">
+            <div className="card card--section">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <div className="relative">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-[color:var(--color-border-subtle)] border-t-[color:var(--color-primary)] rounded-full animate-spin"></div>
+                </div>
+                <p className="text-sm sm:text-base text-secondary font-medium">
+                  Loading projects...
+                </p>
               </div>
-              <p className="text-sm sm:text-base text-gray-600 font-medium">Loading projects...</p>
             </div>
           </div>
         ) : (
