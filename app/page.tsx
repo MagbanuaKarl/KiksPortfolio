@@ -11,6 +11,11 @@ export default async function HomePage() {
   if (!profile) return null;
 
   const projects = allProjects.filter((p) => p.featured);
+  const allSkills = new Set<string>([
+    ...(profile.skills ?? []),
+    ...allProjects.flatMap((p) => p.techStack ?? []),
+  ]);
+  const ribbonSkills = Array.from(allSkills).slice(0, 18);
 
   return (
     <main className="page-shell">
@@ -19,7 +24,7 @@ export default async function HomePage() {
         <section className="card card--section animate-fade-in-up">
           <div className="max-w-4xl">
             {/* Name with gradient */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-slate-100 dark:via-blue-200 dark:to-purple-300 bg-clip-text text-transparent mb-4">
+            <h1 className="heading-hero bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-slate-100 dark:via-blue-200 dark:to-purple-300 bg-clip-text text-transparent mb-4">
               {profile.name}
             </h1>
             
@@ -118,6 +123,101 @@ export default async function HomePage() {
                 </a>
               )}
             </div>
+
+            {/* Tech stack ribbon */}
+            {ribbonSkills.length > 0 && (
+              <div className="mt-10 border-t border-[color:var(--color-border-subtle)] pt-4">
+                <div className="mono-accent mb-2 text-secondary">
+                  Tech stack
+                </div>
+                <div className="relative -mx-2">
+                  <div className="pointer-events-none absolute left-0 top-0 h-full w-8 bg-gradient-to-r from-[var(--color-surface)] to-transparent" />
+                  <div className="pointer-events-none absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-[var(--color-surface)] to-transparent" />
+                  <div className="flex gap-3 overflow-x-auto no-scrollbar px-2 py-1">
+                    {ribbonSkills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="pill border border-[color:var(--color-border-subtle)] bg-[color:var(--color-surface-soft)]/80 px-3 py-1 text-xs text-secondary whitespace-nowrap hover:border-[color:var(--color-border-strong)] transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Bento grid: capabilities overview */}
+        <section className="grid gap-4 sm:gap-5 lg:gap-6 md:grid-cols-6">
+          <div className="card card--section md:col-span-3 lift">
+            <h2 className="heading-section mb-3 bg-gradient-to-r from-gray-900 to-gray-600 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
+              High‑performance web systems
+            </h2>
+            <p className="text-sm sm:text-base text-secondary leading-relaxed mb-4">
+              I design and ship production systems with clear boundaries,
+              predictable performance, and observability from day one.
+            </p>
+            <ul className="space-y-2 text-sm text-secondary">
+              <li>• API‑driven architectures with clean separation of concerns</li>
+              <li>• Caching, pagination, and querying strategies for real data</li>
+              <li>• DX‑focused tooling, CI, and code review practices</li>
+            </ul>
+          </div>
+
+          <div className="card card--section md:col-span-3 lift">
+            <h3 className="mono-accent text-[color:var(--color-tag-frontend)] mb-1">
+              Frontend / UX engineering
+            </h3>
+            <p className="text-sm text-secondary mb-3">
+              Modern React, Next.js, and calm UX patterns.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {Array.from(allSkills)
+                .filter((s) =>
+                  /react|next|tailwind|typescript|js|ts/i.test(s)
+                )
+                .slice(0, 8)
+                .map((skill) => (
+                  <span
+                    key={skill}
+                    className="pill bg-[color:var(--color-primary-soft)]/70 text-[color:var(--color-primary)] border border-[color:var(--color-border-subtle)] px-3 py-1 text-xs"
+                  >
+                    {skill}
+                  </span>
+                ))}
+            </div>
+          </div>
+
+          <div className="card card--section md:col-span-2 lift">
+            <h3 className="mono-accent text-[color:var(--color-tag-backend)] mb-1">
+              Backend & data
+            </h3>
+            <p className="text-sm text-secondary">
+              Firebase / Firestore, REST APIs, and data modeling for
+              real‑world usage rather than toy demos.
+            </p>
+          </div>
+
+          <div className="card card--section md:col-span-2 lift">
+            <h3 className="mono-accent text-[color:var(--color-tag-database)] mb-1">
+              Tooling & quality
+            </h3>
+            <p className="text-sm text-secondary">
+              TypeScript, linting, and opinionated structure to keep projects
+              maintainable as they grow.
+            </p>
+          </div>
+
+          <div className="card card--section md:col-span-2 lift">
+            <h3 className="mono-accent text-secondary mb-1">
+              Currently focused on
+            </h3>
+            <p className="text-sm text-secondary">
+              Better developer experience, calm interactions, and portfolio‑
+              ready case studies instead of generic templates.
+            </p>
           </div>
         </section>
 

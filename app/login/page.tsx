@@ -23,9 +23,14 @@ export default function LoginPage() {
 
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const code =
+        typeof err === "object" && err !== null && "code" in err
+          ? String((err as { code?: unknown }).code)
+          : undefined;
+
       setError(
-        err?.code === "auth/invalid-credential"
+        code === "auth/invalid-credential"
           ? "Invalid email or password."
           : "Failed to sign in. Please check your credentials."
       );

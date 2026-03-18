@@ -7,7 +7,7 @@ type Props = {
 
 export function ProjectCard({ project, compact }: Props) {
   return (
-    <article className="card card--section card--interactive p-6 group">
+    <article className="card card--section card--interactive lift p-6 group">
       <header className="flex items-start gap-3 mb-4">
         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-semibold text-sm shadow-md">
           {project.title.charAt(0)}

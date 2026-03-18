@@ -17,16 +17,17 @@ export default function ProjectsSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
 
-  useEffect(() => {
-    refresh();
-  }, []);
-
   async function refresh() {
     setLoading(true);
     const data = await getProjects();
     setProjects(data);
     setLoading(false);
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    refresh();
+  }, []);
 
   function openCreate() {
     setEditingProject(null);

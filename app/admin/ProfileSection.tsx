@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProfileForm from "./ProfileForm";
-import { getProfile, updateProfile } from "@/lib/profile";
+import { getProfile } from "@/lib/profile";
 import { Profile } from "@/types/profile";
 
 export default function ProfileSection() {
