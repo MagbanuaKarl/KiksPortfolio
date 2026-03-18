@@ -95,7 +95,10 @@ export default function ProjectTable({
                 <td className="px-6 py-4 text-center">
                   <button
                     onClick={() => onToggleFeatured(p)}
-                    className="relative inline-flex items-center justify-center"
+                    type="button"
+                    aria-label={p.featured ? "Unfeature project" : "Feature project"}
+                    aria-pressed={p.featured}
+                    className="relative inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-full"
                   >
                     <input
                       type="checkbox"

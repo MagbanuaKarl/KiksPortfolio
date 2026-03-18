@@ -6,32 +6,39 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setLoading(true);
 
     try {
+      const form = e.currentTarget;
+      const formData = new FormData(form);
+      const email = String(formData.get("email") || "");
+      const password = String(formData.get("password") || "");
+
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");
     } catch (err: any) {
-      setError(err.message || "Failed to sign in. Please check your credentials.");
+      setError(
+        err?.code === "auth/invalid-credential"
+          ? "Invalid email or password."
+          : "Failed to sign in. Please check your credentials."
+      );
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="page-shell flex items-center justify-center">
       <div className="w-full max-w-md">
         {/* Login Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+        <div className="card overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-10 text-center">
             <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
@@ -44,11 +51,14 @@ export default function LoginPage() {
           </div>
 
           {/* Form */}
-          <div className="p-8">
+          <form onSubmit={handleLogin} className="p-8">
             <div className="space-y-5">
               {/* Email Input */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-primary mb-2"
+                >
                   Email Address
                 </label>
                 <div className="relative">
@@ -58,11 +68,12 @@ export default function LoginPage() {
                     </svg>
                   </div>
                   <input
+                    id="email"
+                    name="email"
                     type="email"
                     className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow outline-none"
                     placeholder="admin@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="username"
                     required
                   />
                 </div>
@@ -70,7 +81,10 @@ export default function LoginPage() {
 
               {/* Password Input */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-semibold text-primary mb-2"
+                >
                   Password
                 </label>
                 <div className="relative">
@@ -80,11 +94,12 @@ export default function LoginPage() {
                     </svg>
                   </div>
                   <input
+                    id="password"
+                    name="password"
                     type="password"
                     className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow outline-none"
                     placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
                     required
                   />
                 </div>
@@ -102,8 +117,7 @@ export default function LoginPage() {
 
               {/* Submit Button */}
               <button
-                type="button"
-                onClick={handleLogin}
+                type="submit"
                 disabled={loading}
                 className="w-full inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -125,7 +139,7 @@ export default function LoginPage() {
                 )}
               </button>
             </div>
-          </div>
+          </form>
         </div>
 
         {/* Footer */}
